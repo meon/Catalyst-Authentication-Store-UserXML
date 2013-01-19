@@ -3,9 +3,16 @@ package Catalyst::Plugin::Authentication::Store::UserXML;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Catalyst::Plugin::Authentication::Store::UserXML::Folder;
+
+use Class::C3;
+
+sub new {
+    my ($class, $config, $app, $realm) = @_;
+    bless { %$config }, $class;
+}
 
 sub setup {
     my $c = shift;
@@ -27,7 +34,7 @@ sub setup {
         })
     );
 
-	$c->NEXT::setup(@_);
+	$c->next::method(@_);
 }
 
 1;
