@@ -28,9 +28,12 @@ sub setup {
     die $folder.' is not a folder'
         unless -d $folder;
 
+    my $user_folder_file = $config->{user_folder_file};
+
     $c->default_auth_store(
         Catalyst::Plugin::Authentication::Store::UserXML::Folder->new({
-            folder => $folder,
+            folder       => $folder,
+            ($user_folder_file ? (user_folder_file => $user_folder_file) : ()),
         })
     );
 
@@ -69,6 +72,7 @@ Catalyst::Plugin::Authentication::Store::UserXML - Catalyst authentication stora
         'authentication' => {
             'userxml' => {
                 'folder' => 'members',
+                'user_folder_file' => 'index.xml',   # optional if credentials stored one per folder
             }
         },
     );

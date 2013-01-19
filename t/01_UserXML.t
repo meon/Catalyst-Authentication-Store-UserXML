@@ -44,15 +44,18 @@ done_testing();
 
 sub user01_xml {
     return q{
-<user>
+<root-element xmlns="http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML-test">
+<user xmlns="http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML">
     <username>uname01</username>
     <password>{CLEARTEXT}secretX</password>
 </user>
+</root-element>
 };
 }
 sub user02_xml {
     return q{
-<user>
+<root-element xmlns="http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML-test">
+<user xmlns="http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML">
     <username>uname02</username>
     <password>{CLEARTEXT}secret-02</password>
     <roles>
@@ -60,5 +63,6 @@ sub user02_xml {
         <role>admin</role>
     </roles>
 </user>
+</root-element>
 };
 }

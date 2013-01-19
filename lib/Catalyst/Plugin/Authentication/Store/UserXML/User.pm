@@ -28,12 +28,11 @@ sub get_node {
     my ($self, $element_name) = @_;
     my $dom = $self->xml->documentElement;
 
-    foreach my $node ($dom->findnodes('*')) {
-        next if $element_name ne $node->nodeName;
-        return $node;
-    }
+    my $xc = XML::LibXML::XPathContext->new($dom);
+    $xc->registerNs('userxml', 'http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML');
+    my ($node) = $xc->findnodes('//userxml:'.$element_name);
 
-    return undef;
+    return $node;
 }
 
 sub get_node_text {
@@ -76,7 +75,9 @@ sub roles {
     return () unless $node;
 
     my @roles;
-    foreach my $role_node ($node->findnodes('role')) {
+    my $xc = XML::LibXML::XPathContext->new($node);
+    $xc->registerNs('userxml', 'http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML');
+    foreach my $role_node ($xc->findnodes('//userxml:role')) {
         push(@roles, $role_node->textContent)
     }
 
