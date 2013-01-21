@@ -61,11 +61,12 @@ sub check_password {
 	my ( $self, $secret ) = @_;
     my $password_hash = $self->password_hash;
 
-    return
-        Authen::Passphrase
-        ->from_rfc2307($password_hash)
-        ->match($secret)
-    ;
+    my $ppr = eval { Authen::Passphrase->from_rfc2307($password_hash) };
+    unless ($ppr) {
+        warn $@;
+        return;
+    }
+    return $ppr->match($secret);
 }
 
 sub roles {
