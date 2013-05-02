@@ -7,6 +7,8 @@ use Moose;
 use Path::Class;
 use XML::LibXML;
 use Authen::Passphrase;
+use Authen::Passphrase::BlowfishCrypt;
+use Path::Class 0.26 'file';
 
 extends 'Catalyst::Authentication::User';
 
@@ -69,6 +71,20 @@ sub check_password {
     return $ppr->match($secret);
 }
 
+sub set_password {
+	my ( $self, $secret ) = @_;
+    my $password_el = $self->get_node('password');
+
+    my $ppr = Authen::Passphrase::BlowfishCrypt->new(
+        cost        => 8,
+        salt_random => 1,
+        passphrase  => $secret,
+    );
+    $password_el->removeChildNodes();
+    $password_el->appendText($ppr->as_rfc2307);
+    $self->store;
+}
+
 sub roles {
 	my $self = shift;
 
@@ -88,6 +104,11 @@ sub roles {
 sub for_session {
     my $self = shift;
     return $self->username;
+}
+
+sub store {
+    my $self = shift;
+    file($self->xml_filename)->spew($self->xml->toString)
 }
 
 1;

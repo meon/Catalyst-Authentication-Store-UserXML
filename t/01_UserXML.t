@@ -30,6 +30,11 @@ can_ok( $user, "check_password");
 ok( $user->check_password( "secretX" ), "password is secretX");
 ok( !$user->check_password( "secretx" ), "password is not secretx");
 
+# change password
+$user->set_password( "secretX2" );
+isa_ok( my $user_reload = $userxml_folder->find_user({username=>"uname01"}), "Catalyst::Plugin::Authentication::Store::UserXML::User");
+ok( $user_reload->check_password( "secretX2" ), "password is now secretX2");
+
 can_ok( $user, "roles");
 is_deeply( [$user->roles], [], "user->roles()");
 is_deeply( [$user2->roles], [qw(member admin)], "user2->roles()");
