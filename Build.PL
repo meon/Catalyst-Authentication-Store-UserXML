@@ -15,6 +15,7 @@ my $build = Module::Build->new(
     },
     build_requires => {
         'Test::More'        => 0,
+        'Test::Differences' => 0,
         'File::Temp'        => 0,
         'Path::Class'       => 0.26,
     },

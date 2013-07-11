@@ -17,6 +17,8 @@ has 'xml' => (is=>'ro', isa=>'XML::LibXML::Document', lazy => 1, builder => '_bu
 
 use overload '""' => sub { shift->username }, fallback => 1;
 
+my $OUR_NS = 'http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML';
+
 sub _build_xml {
     my $self = shift;
     my $xml_file = $self->xml_filename;
@@ -31,7 +33,7 @@ sub get_node {
     my $dom = $self->xml->documentElement;
 
     my $xc = XML::LibXML::XPathContext->new($dom);
-    $xc->registerNs('userxml', 'http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML');
+    $xc->registerNs('userxml', $OUR_NS);
     my ($node) = $xc->findnodes('//userxml:'.$element_name);
 
     return $node;
@@ -48,6 +50,7 @@ sub get_node_text {
 *id = *username;
 sub username      { return $_[0]->get_node_text('username'); }
 sub password_hash { return $_[0]->get_node_text('password'); }
+sub status        { return $_[0]->get_node_text('status') // 'active'; }
 
 sub supported_features {
 	return {
@@ -61,8 +64,10 @@ sub supported_features {
 
 sub check_password {
 	my ( $self, $secret ) = @_;
-    my $password_hash = $self->password_hash;
 
+    return 0 unless $self->status eq 'active';
+
+    my $password_hash = $self->password_hash;
     my $ppr = eval { Authen::Passphrase->from_rfc2307($password_hash) };
     unless ($ppr) {
         warn $@;
@@ -82,6 +87,22 @@ sub set_password {
     );
     $password_el->removeChildNodes();
     $password_el->appendText($ppr->as_rfc2307);
+    $self->store;
+}
+
+sub set_status {
+	my ( $self, $status ) = @_;
+    my $status_el = $self->get_node('status');
+    if (!$status_el) {
+        my $user_el = $self->get_node('password')->parentNode;
+        $user_el->appendText(' 'x4);
+        $status_el = $user_el->addNewChild($OUR_NS, 'status');
+        $user_el->appendText("\n");
+    }
+
+    $status_el->removeChildNodes();
+    $status_el->appendText($status);
+
     $self->store;
 }
 
