@@ -3,6 +3,8 @@ package Catalyst::Plugin::Authentication::Store::UserXML::Folder;
 use strict;
 use warnings;
 
+our $VERSION = '0.02';
+
 use Moose;
 use Catalyst::Plugin::Authentication::Store::UserXML::User;
 use Path::Class 'file';
