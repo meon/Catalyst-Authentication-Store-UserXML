@@ -19,7 +19,12 @@ sub find_user {
         ? file($self->folder, $username, $self->user_folder_file)
         : file($self->folder, $username.'.xml')
     );
-    return undef unless -r $file;
+    unless (-r $file) {
+        if (my $fallback = $c->config->{authentication}{userxml}{find_user_fallback}) {
+            return $c->$fallback($authinfo);
+        }
+        return undef;
+    }
 
     my $user = Catalyst::Plugin::Authentication::Store::UserXML::User->new({
         xml_filename => $file

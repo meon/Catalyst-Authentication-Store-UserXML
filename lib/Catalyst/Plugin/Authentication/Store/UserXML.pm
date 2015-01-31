@@ -3,7 +3,7 @@ package Catalyst::Plugin::Authentication::Store::UserXML;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Catalyst::Plugin::Authentication::Store::UserXML::Folder;
 
