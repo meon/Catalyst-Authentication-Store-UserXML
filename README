@@ -25,6 +25,7 @@ SYNOPSIS
             'authentication' => {
                 'userxml' => {
                     'folder' => 'members',
+                    'user_folder_file' => 'index.xml',   # optional if credentials stored one per folder
                 }
             },
         );
@@ -43,7 +44,7 @@ SEE ALSO
     Catalyst::Plugin::Authentication::Store::UserXML::User
 
 AUTHOR
-    Jozef Kutej, `<jkutej at cpan.org>'
+    Jozef Kutej, "<jkutej at cpan.org>"
 
 CONTRIBUTORS
     The following people have contributed to the File::is by committing

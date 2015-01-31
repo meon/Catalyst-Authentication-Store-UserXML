@@ -1,7 +1,7 @@
 0.03 - XXX
     - allow for fallback user defined user look-up
 
-0.02 - 25 Aug 2014
+0.02 Aug 25 15:01:58 CET 2014
     - members folders support
     - add set_password()
     - set_status() + check status when validating password
