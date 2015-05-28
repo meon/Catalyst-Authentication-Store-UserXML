@@ -1,4 +1,7 @@
-0.03 - Thu 28 May 10:59:13 CEST 2015
+0.04 Thu 28 May 14:12:03 CEST 2015
+    - fix namespace issue
+
+0.03 Thu 28 May 10:59:13 CEST 2015
     - allow for fallback user defined user look-up
     - namespace change from Catalyst::Plugin::Authentication::Store::UserXML to Catalyst::Authentication::Store::UserXML
 

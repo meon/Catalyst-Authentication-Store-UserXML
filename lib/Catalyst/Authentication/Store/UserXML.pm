@@ -3,22 +3,17 @@ package Catalyst::Authentication::Store::UserXML;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use Catalyst::Authentication::Store::UserXML::Folder;
 
 use Class::C3;
 
 sub new {
-    my ($class, $config, $app, $realm) = @_;
-    bless { %$config }, $class;
-}
+    my ($class, $config, $c, $realm) = @_;
 
-sub setup {
-    my $c = shift;
-
-    my $config = $c->config->{authentication}{userxml} || {};
-    my $folder = $config->{folder};
+    my $auth_config = $c->config->{authentication}{userxml} || {};
+    my $folder = $auth_config->{folder};
     die 'please set user xml folder in your configuration file ($c->config->{authentication}{userxml}{folder})'
         unless $folder;
     
@@ -28,7 +23,7 @@ sub setup {
     die $folder.' is not a folder'
         unless -d $folder;
 
-    my $user_folder_file = $config->{user_folder_file};
+    my $user_folder_file = $auth_config->{user_folder_file};
 
     $c->default_auth_store(
         Catalyst::Authentication::Store::UserXML::Folder->new({
@@ -37,7 +32,8 @@ sub setup {
         })
     );
 
-	$c->next::method(@_);
+#	$c->next::method(@_);
+    bless { %$config }, $class;
 }
 
 1;
