@@ -1,12 +1,12 @@
-package Catalyst::Plugin::Authentication::Store::UserXML::Folder;
+package Catalyst::Authentication::Store::UserXML::Folder;
 
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Moose;
-use Catalyst::Plugin::Authentication::Store::UserXML::User;
+use Catalyst::Authentication::Store::UserXML::User;
 use Path::Class 'file';
 
 has 'folder'           => (is=>'rw', isa=>'Path::Class::Dir', required => 1);
@@ -28,7 +28,7 @@ sub find_user {
         return undef;
     }
 
-    my $user = Catalyst::Plugin::Authentication::Store::UserXML::User->new({
+    my $user = Catalyst::Authentication::Store::UserXML::User->new({
         xml_filename => $file
     });
 
@@ -40,7 +40,7 @@ sub find_user {
 
 sub user_supports {
     my $self = shift;
-    Catalyst::Plugin::Authentication::Store::UserXML::User->supports(@_);
+    Catalyst::Authentication::Store::UserXML::User->supports(@_);
 }
 
 sub from_session {

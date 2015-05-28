@@ -1,11 +1,11 @@
-package Catalyst::Plugin::Authentication::Store::UserXML;
+package Catalyst::Authentication::Store::UserXML;
 
 use strict;
 use warnings;
 
 our $VERSION = '0.03';
 
-use Catalyst::Plugin::Authentication::Store::UserXML::Folder;
+use Catalyst::Authentication::Store::UserXML::Folder;
 
 use Class::C3;
 
@@ -31,7 +31,7 @@ sub setup {
     my $user_folder_file = $config->{user_folder_file};
 
     $c->default_auth_store(
-        Catalyst::Plugin::Authentication::Store::UserXML::Folder->new({
+        Catalyst::Authentication::Store::UserXML::Folder->new({
             folder       => $folder,
             ($user_folder_file ? (user_folder_file => $user_folder_file) : ()),
         })
@@ -46,7 +46,7 @@ __END__
 
 =head1 NAME
 
-Catalyst::Plugin::Authentication::Store::UserXML - Catalyst authentication storage using xml files
+Catalyst::Authentication::Store::UserXML - Catalyst authentication storage using xml files
 
 =head1 SYNOPSIS
 
@@ -90,7 +90,7 @@ Catalyst authentication storage using xml files in a folder.
 =head1 SEE ALSO
 
 L<Catalyst::Plugin::Authentication>
-L<Catalyst::Plugin::Authentication::Store::UserXML::User>
+L<Catalyst::Authentication::Store::UserXML::User>
 
 =head1 AUTHOR
 

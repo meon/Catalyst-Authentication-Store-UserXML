@@ -1,8 +1,8 @@
 Build.PL
 Changes
-lib/Catalyst/Plugin/Authentication/Store/UserXML.pm
-lib/Catalyst/Plugin/Authentication/Store/UserXML/Folder.pm
-lib/Catalyst/Plugin/Authentication/Store/UserXML/User.pm
+lib/Catalyst/Authentication/Store/UserXML.pm
+lib/Catalyst/Authentication/Store/UserXML/Folder.pm
+lib/Catalyst/Authentication/Store/UserXML/User.pm
 MANIFEST			This list of files
 META.json
 META.yml

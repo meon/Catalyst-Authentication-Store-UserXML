@@ -1,9 +1,9 @@
-package Catalyst::Plugin::Authentication::Store::UserXML::User;
+package Catalyst::Authentication::Store::UserXML::User;
 
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Moose;
 use Path::Class;
@@ -19,7 +19,7 @@ has 'xml' => (is=>'ro', isa=>'XML::LibXML::Document', lazy => 1, builder => '_bu
 
 use overload '""' => sub { shift->username }, fallback => 1;
 
-my $OUR_NS = 'http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML';
+my $OUR_NS = 'http://search.cpan.org/perldoc?Catalyst%3A%3AAuthentication%3A%3AStore%3A%3AUserXML';
 
 sub _build_xml {
     my $self = shift;
@@ -116,7 +116,7 @@ sub roles {
 
     my @roles;
     my $xc = XML::LibXML::XPathContext->new($node);
-    $xc->registerNs('userxml', 'http://search.cpan.org/perldoc?Catalyst%3A%3APlugin%3A%3AAuthentication%3A%3AStore%3A%3AUserXML');
+    $xc->registerNs('userxml', 'http://search.cpan.org/perldoc?Catalyst%3A%3AAuthentication%3A%3AStore%3A%3AUserXML');
     foreach my $role_node ($xc->findnodes('//userxml:role')) {
         push(@roles, $role_node->textContent)
     }
@@ -141,7 +141,7 @@ __END__
 
 =head1 SYNOPSIS
 
-    my $user = Catalyst::Plugin::Authentication::Store::UserXML::User->new({
+    my $user = Catalyst::Authentication::Store::UserXML::User->new({
         xml_filename => $file
     });
     say $user->username;

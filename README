@@ -1,6 +1,6 @@
 NAME
-    Catalyst::Plugin::Authentication::Store::UserXML - Catalyst
-    authentication storage using xml files
+    Catalyst::Authentication::Store::UserXML - Catalyst authentication
+    storage using xml files
 
 SYNOPSIS
         use Catalyst qw(
@@ -41,10 +41,10 @@ DESCRIPTION
 
 SEE ALSO
     Catalyst::Plugin::Authentication
-    Catalyst::Plugin::Authentication::Store::UserXML::User
+    Catalyst::Authentication::Store::UserXML::User
 
 AUTHOR
-    Jozef Kutej, "<jkutej at cpan.org>"
+    Jozef Kutej, `<jkutej at cpan.org>'
 
 CONTRIBUTORS
     The following people have contributed to the File::is by committing
